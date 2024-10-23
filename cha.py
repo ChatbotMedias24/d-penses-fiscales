@@ -172,16 +172,16 @@ def main():
             ]
 
             # Appeler l'API OpenAI pour obtenir le résumé
-                 response = openai.ChatCompletion.create(
+                response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=messages
             )
 
             # Récupérer le contenu de la réponse
 
-                 summary = response['choices'][0]['message']['content']
+                summary = response['choices'][0]['message']['content']
             
-                 st.session_state.conversation_history.add_ai_message(summary)  # Ajouter à l'historique
+                st.session_state.conversation_history.add_ai_message(summary)  # Ajouter à l'historique
             
             # Afficher la question et le résumé de l'assistant
             #conversation_history.add_user_message(query)
