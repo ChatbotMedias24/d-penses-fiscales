@@ -155,10 +155,14 @@ def main():
             query = ""
 
         if query :
-            st.session_state.conversation_history.add_user_message(query)  # Ajouter à l'historique
+            st.session_state.conversation_history.add_user_message(query) 
+            if "Donnez-moi un résumé du rapport" in query:
+                summary="Le rapport évalue l'impact des dépenses fiscales sur le budget de l'État en utilisant la méthode de la perte initiale en recette. Cette approche consiste à chiffrer, de manière ex-post, la réduction des recettes fiscales résultant de l'adoption d'une dépense fiscale, en supposant que cette adoption n'affecte pas le comportement des contribuables. En d'autres termes, il s'agit d'estimer l'écart par rapport au système fiscal de référence pour quantifier les recettes perdues, en considérant que toutes les transactions auraient eu lieu même sans la mesure adoptée. Cette méthode permet de se concentrer sur les pertes fiscales directes, tout en laissant la possibilité d'utiliser des estimations plus sophistiquées lorsque les informations disponibles le permettent ."# Ajouter à l'historique
+                st.session_state.conversation_history.add_ai_message(summary) 
 
         
-            messages = [
+            else:
+                messages = [
                 {
                     "role": "user",
                     "content": (
@@ -168,17 +172,16 @@ def main():
             ]
 
             # Appeler l'API OpenAI pour obtenir le résumé
-            response = openai.ChatCompletion.create(
+                 response = openai.ChatCompletion.create(
                 model="gpt-4o-mini",
                 messages=messages
             )
 
             # Récupérer le contenu de la réponse
 
-            summary = response['choices'][0]['message']['content']
-            if "Donnez-moi un résumé du rapport" in query:
-                summary="Le rapport évalue l'impact des dépenses fiscales sur le budget de l'État en utilisant la méthode de la perte initiale en recette. Cette approche consiste à chiffrer, de manière ex-post, la réduction des recettes fiscales résultant de l'adoption d'une dépense fiscale, en supposant que cette adoption n'affecte pas le comportement des contribuables. En d'autres termes, il s'agit d'estimer l'écart par rapport au système fiscal de référence pour quantifier les recettes perdues, en considérant que toutes les transactions auraient eu lieu même sans la mesure adoptée. Cette méthode permet de se concentrer sur les pertes fiscales directes, tout en laissant la possibilité d'utiliser des estimations plus sophistiquées lorsque les informations disponibles le permettent ."
-            st.session_state.conversation_history.add_ai_message(summary)  # Ajouter à l'historique
+                 summary = response['choices'][0]['message']['content']
+            
+                 st.session_state.conversation_history.add_ai_message(summary)  # Ajouter à l'historique
             
             # Afficher la question et le résumé de l'assistant
             #conversation_history.add_user_message(query)
