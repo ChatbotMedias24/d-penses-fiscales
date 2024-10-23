@@ -131,7 +131,7 @@ if 'conversation_history' not in st.session_state:
 def main():
     conversation_history = StreamlitChatMessageHistory()  # Créez l'instance pour l'historique
 
-    st.header("PLF2025: Explorez le rapport sur les dépenses fiscales à travers notre chatbot 💬")
+    st.header("Explorez le rapport sur les dépenses fiscales à travers notre chatbot 💬")
     
     # Load the document
     docx = 'PLF2025-depenses-fiscales_Fr.docx'
